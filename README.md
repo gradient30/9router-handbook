@@ -9,6 +9,14 @@
 - 发布：GitHub Pages（`main` 推送后自动构建；工作流 `.github/workflows/pages.yml`）
 - 风格：顶栏 **明 / 暗 / 彩** 三套，切换结果保存在浏览器本地
 
+## 首次启用 Pages（一次性）
+
+仓库刚创建时需要在 GitHub 勾选发布源，之后每次推送都会自动更新：
+
+1. 打开 [Settings → Pages](https://github.com/gradient30/9router-handbook/settings/pages)
+2. Build and deployment → Source 选择 **GitHub Actions**
+3. 到 [Actions](https://github.com/gradient30/9router-handbook/actions) 把最近一次 *Deploy GitHub Pages* 点 **Re-run jobs**
+
 ## 内容
 
 | 部分 | 说明 |
