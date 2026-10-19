@@ -4,6 +4,9 @@
 
 ---
 
+> **2026 更新:** 免费层请优先使用 **Kiro / OpenCode Free / Vertex**。iFlow、Qwen Code、Gemini CLI 免费层已停用。详见 [免费提供商](/docs/providers/free)。
+
+
 ## 什么是 9Router?
 
 **9Router 是一款 AI 模型路由工具,能够最大化你的订阅价值并最小化成本。**
@@ -28,7 +31,7 @@
 ### 第 1 层:订阅(优先使用)
 - **Claude Code**(Pro/Max):$20-100/月 - 5 小时 + 每周配额
 - **OpenAI Codex**(Plus/Pro):$20-200/月 - 5 小时 + 每周配额
-- **Gemini CLI**:免费 - 每月 180K 次补全 + 每天 1K
+- **Gemini CLI**:免费层已停用（2026）；勿再按 180K/月规划
 - **GitHub Copilot**:$10-19/月 - 每月重置
 - **Antigravity**:免费 - 类似 Gemini
 
@@ -36,13 +39,13 @@
 
 ### 第 2 层:低价(备用)
 - **GLM-4.7**:每 1M tokens $0.60/$2.20 - 每日 10AM 重置
-- **MiniMax M2.1**:每 1M tokens $0.20/$1.00 - 5 小时滚动
+- **MiniMax M2.7**:每 1M tokens $0.20/$1.00 - 5 小时滚动
 - **Kimi K2**:$9/月固定(10M tokens)
 
 **目标:** 比 ChatGPT API(每 1M $20)便宜 90%!
 
 ### 第 3 层:免费(应急)
-- **iFlow**:8 个免费模型(Kimi K2、Qwen3、GLM、MiniMax...)
+- **Kiro / OpenCode Free / Vertex**:当前推荐免费层（额度内）
 - **Qwen**:3 个免费模型(Qwen3 Coder Plus/Flash、Vision)
 - **Kiro**:2 个免费模型(Claude Sonnet 4.5、Haiku 4.5)
 
@@ -55,8 +58,8 @@
 **是的,9Router 本身 100% 免费且开源。**
 
 **可用的免费层提供商:**
-- **Gemini CLI** - 每月 180K 次补全(免费 Google 账户)
-- **iFlow** - 8 个无限模型(免费 OAuth)
+- **Kiro** - 约 50 credits/月（Claude 4.5 等）
+- **OpenCode Free** - 无鉴权兜底（模型列表浮动）
 - **Qwen** - 3 个无限模型(免费 OAuth)
 - **Kiro** - Claude Sonnet/Haiku(免费 AWS Builder ID)
 
@@ -79,12 +82,12 @@
 
 ### 低价提供商
 - **GLM**(Zhipu AI)- GLM 4.7、GLM 4.6V Vision
-- **MiniMax** - MiniMax M2.1
+- **MiniMax** - MiniMax M2.7
 - **Kimi**(Moonshot AI)- Kimi Latest
 - **OpenRouter** - 透传到任意 OpenRouter 模型
 
 ### 免费提供商
-- **iFlow** - 8 个模型(Kimi K2、Qwen3、GLM、MiniMax、DeepSeek...)
+- **Vertex AI** - GCP 试用额度（走 Vertex AI Studio 端点）
 - **Qwen** - 3 个模型(Qwen3 Coder Plus/Flash、Vision)
 - **Kiro** - 2 个模型(Claude Sonnet 4.5、Haiku 4.5)
 
@@ -104,7 +107,7 @@
 示例组合: "premium-coding"
 1. cc/claude-opus-4-5(订阅主力)
 2. glm/glm-4.7(低价备用)
-3. if/kimi-k2(免费应急)
+3. kr/claude-sonnet-4.5（免费应急）
 
 → 配额耗尽时自动切换
 → 永不停止编码
@@ -142,7 +145,7 @@
 - **5 小时滚动** - Claude Code、Codex、MiniMax
 - **每日重置** - Gemini CLI(每日 1K)、GLM(10AM)
 - **每周重置** - Claude Code、Codex(额外配额)
-- **每月重置** - Gemini CLI(180K)、GitHub Copilot(1 日)
+- **每月重置** - 视提供商而定（如 Copilot）；免费层见 Kiro credits
 
 **查看配额:**
 ```

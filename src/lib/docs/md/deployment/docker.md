@@ -4,7 +4,52 @@
 
 ---
 
-## 快速启动
+
+## 官方 docker-compose（含 Headroom）
+
+上游仓库自带 `docker-compose.yml`，默认把 Headroom 作为边车并设置 `HEADROOM_URL`：
+
+```yaml
+services:
+  9router:
+    image: decolua/9router:latest
+    container_name: 9router
+    restart: always
+    ports:
+      - "20128:20128"
+    volumes:
+      - 9router-data:/app/data
+    env_file:
+      - .env
+    environment:
+      DATA_DIR: /app/data
+      PORT: "20128"
+      HOSTNAME: "0.0.0.0"
+      NODE_ENV: production
+      HEADROOM_URL: http://headroom:8787
+    depends_on:
+      - headroom
+
+  headroom:
+    image: ghcr.io/chopratejas/headroom:latest
+    container_name: headroom
+    restart: always
+    ports:
+      - "8787:8787"
+
+volumes:
+  9router-data:
+    name: 9router-data
+```
+
+```bash
+cp .env.example .env   # 至少改 JWT_SECRET / INITIAL_PASSWORD
+docker compose up -d
+```
+
+打开 <http://localhost:20128> 。数据在命名卷 `9router-data`；若更习惯绑定宿主机目录，可用下文的 `docker run -v "$HOME/.9router:/app/data"`。
+
+## 快速启动（单容器）
 
 ```bash
 docker run -d \
