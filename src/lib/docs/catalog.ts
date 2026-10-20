@@ -31,11 +31,15 @@ export type DocPage = {
   description: string;
   group: string;
   markdown: string;
+  /** Page updated in the current docs sync (sidebar red dot). */
+  updated?: boolean;
+  /** Exact H2/H3 heading texts that got the main edits (content red dots). */
+  updatedSections?: string[];
 };
 
 export type NavGroup = {
   title: string;
-  items: { title: string; href: string; slug: string }[];
+  items: { title: string; href: string; slug: string; updated?: boolean }[];
 };
 
 export const PAGES: DocPage[] = [
@@ -45,6 +49,13 @@ export const PAGES: DocPage[] = [
     title: "概览",
     description: "9Router 是什么，以及它如何帮你把订阅用尽、把成本压低。",
     group: "开始",
+    updated: true,
+    updatedSections: [
+      "什么是 9Router?",
+      "核心特性",
+      "免费回退（当前推荐）",
+      "快速开始",
+    ],
     markdown: overview,
   },
   {
@@ -53,6 +64,13 @@ export const PAGES: DocPage[] = [
     title: "快速开始",
     description: "五分钟安装、启动并接上第一个提供商。",
     group: "开始",
+    updated: true,
+    updatedSections: [
+      "3. 连接提供商",
+      "可用模型",
+      "免费模型(应急)",
+      "成本优化策略",
+    ],
     markdown: quickStart,
   },
   {
@@ -77,6 +95,12 @@ export const PAGES: DocPage[] = [
     title: "Docker",
     description: "官方多架构镜像、数据卷与升级。",
     group: "部署",
+    updated: true,
+    updatedSections: [
+      "官方 docker-compose（含 Headroom）",
+      "快速启动（单容器）",
+      "可选 Headroom 边车",
+    ],
     markdown: docker,
   },
   {
@@ -93,6 +117,13 @@ export const PAGES: DocPage[] = [
     title: "智能路由",
     description: "订阅 → 低价 → 免费的三层自动回退。",
     group: "功能",
+    updated: true,
+    updatedSections: [
+      "工作原理",
+      "3 层回退系统",
+      "优先级示例",
+      "示例 1:基础自动回退",
+    ],
     markdown: smartRouting,
   },
   {
@@ -101,6 +132,12 @@ export const PAGES: DocPage[] = [
     title: "模型组合",
     description: "回退、轮询、Fusion 与 Capacity 策略。",
     group: "功能",
+    updated: true,
+    updatedSections: [
+      "组合策略（Fallback / Round-robin / Fusion / Capacity）",
+      "示例 1:Premium Coding(订阅 → 低价 → 免费)",
+      "示例 3:Free Combo(零成本)",
+    ],
     markdown: combos,
   },
   {
@@ -109,6 +146,12 @@ export const PAGES: DocPage[] = [
     title: "配额跟踪",
     description: "实时用量、重置倒计时与成本估算。",
     group: "功能",
+    updated: true,
+    updatedSections: [
+      "概览",
+      "免费提供商",
+      "成本估算",
+    ],
     markdown: quota,
   },
   {
@@ -125,6 +168,11 @@ export const PAGES: DocPage[] = [
     title: "订阅型提供商",
     description: "Claude Code、Codex、Gemini、Copilot、Antigravity。",
     group: "提供商",
+    updated: true,
+    updatedSections: [
+      "Gemini CLI（免费层状态请核对）",
+      "概览",
+    ],
     markdown: subProviders,
   },
   {
@@ -133,6 +181,12 @@ export const PAGES: DocPage[] = [
     title: "低价提供商",
     description: "GLM、MiniMax M2.7、Kimi 等超低价备用。",
     group: "提供商",
+    updated: true,
+    updatedSections: [
+      "概览",
+      "MiniMax M2.7(5 小时重置)",
+      "价格对比",
+    ],
     markdown: cheapProviders,
   },
   {
@@ -141,6 +195,15 @@ export const PAGES: DocPage[] = [
     title: "免费提供商",
     description: "Kiro、OpenCode Free、Vertex 等免费回退（旧免费层已停用）。",
     group: "提供商",
+    updated: true,
+    updatedSections: [
+      "概览（2026 现状）",
+      "Kiro AI（推荐首选）",
+      "OpenCode Free（无需鉴权）",
+      "Vertex AI（GCP 试用额度）",
+      "推荐 Combo",
+      "与 RTK 一起用",
+    ],
     markdown: freeProviders,
   },
   {
@@ -197,6 +260,13 @@ export const PAGES: DocPage[] = [
     title: "其他工具",
     description: "OpenClaw、Grok Build、MITM、通用 OpenAI SDK 等。",
     group: "工具接入",
+    updated: true,
+    updatedSections: [
+      "OpenClaw",
+      "Grok Build（xAI）",
+      "MITM / IDE 拦截（进阶）",
+      "通用 OpenAI 兼容模式",
+    ],
     markdown: otherTools,
   },
   {
@@ -221,6 +291,11 @@ export const PAGES: DocPage[] = [
     title: "架构",
     description: "本地网关、翻译核心与数据流。",
     group: "参考",
+    updated: true,
+    updatedSections: [
+      "核心能力",
+      "核心组件",
+    ],
     markdown: architecture,
   },
   {
@@ -229,6 +304,12 @@ export const PAGES: DocPage[] = [
     title: "常见问题",
     description: "价格、安全、配额与云同步问答。",
     group: "参考",
+    updated: true,
+    updatedSections: [
+      "价格是如何计算的?",
+      "支持哪些提供商?",
+      "9Router 是免费的吗?",
+    ],
     markdown: faq,
   },
   {
@@ -237,6 +318,11 @@ export const PAGES: DocPage[] = [
     title: "故障排除",
     description: "空响应、限流、OAuth 与端口问题。",
     group: "参考",
+    updated: true,
+    updatedSections: [
+      "成本过高",
+      "模型未找到",
+    ],
     markdown: troubleshooting,
   },
 ];
@@ -249,6 +335,7 @@ export const NAV_GROUPS: NavGroup[] = GROUP_ORDER.map((title) => ({
     title: p.title,
     href: p.href,
     slug: p.slug,
+    updated: p.updated,
   })),
 }));
 

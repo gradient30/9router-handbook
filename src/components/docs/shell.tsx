@@ -5,7 +5,9 @@ import { RouterMark } from "@/components/brand/mark";
 import { SearchDialog } from "@/components/docs/search";
 import { ThemeSwitch } from "@/components/docs/theme-switch";
 import { Button } from "@/components/ui/button";
+import { UpdateDot } from "@/components/docs/update-dot";
 import { NAV_GROUPS } from "@/lib/docs/catalog";
+import { useSeenUpdates } from "@/lib/docs/use-seen-updates";
 import { cn } from "@/lib/cn";
 
 function isActive(pathname: string, href: string) {
@@ -15,6 +17,8 @@ function isActive(pathname: string, href: string) {
 
 function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const activeSlug = NAV_GROUPS.flatMap((g) => g.items).find((i) => isActive(pathname, i.href))?.slug;
+  const seen = useSeenUpdates(activeSlug);
   return (
     <nav className="space-y-6" aria-label="文档导航">
       {NAV_GROUPS.map((group) => (
@@ -25,17 +29,19 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
           <ul className="space-y-0.5">
             {group.items.map((item) => {
               const active = isActive(pathname, item.href);
+              const showDot = Boolean(item.updated);
               return (
                 <li key={item.href}>
                   <Link
                     to={item.href as never}
                     onClick={onNavigate}
                     className={cn(
-                      "flex min-h-9 items-center rounded-lg px-2.5 text-sm transition-colors",
+                      "flex min-h-9 items-center gap-2 rounded-lg px-2.5 text-sm transition-colors",
                       active ? "bg-subtle text-fg" : "text-muted hover:bg-subtle/70 hover:text-fg",
                     )}
                   >
-                    {item.title}
+                    <span className="min-w-0 flex-1 truncate">{item.title}</span>
+                    {showDot ? <UpdateDot seen={seen.has(item.slug)} /> : null}
                   </Link>
                 </li>
               );
