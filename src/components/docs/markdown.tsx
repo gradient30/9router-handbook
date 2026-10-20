@@ -2,6 +2,7 @@ import { marked, type Token, type Tokens } from "marked";
 import { Check, Copy } from "lucide-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
+import { UpdateDot } from "@/components/docs/update-dot";
 import { rewriteDocHref } from "@/lib/docs/catalog";
 import { cn } from "@/lib/cn";
 
@@ -128,14 +129,15 @@ function CopyButton({ code }: { code: string }) {
   );
 }
 
-function Block({ tokens }: { tokens: Token[] }) {
+function Block({ tokens, updatedSections }: { tokens: Token[]; updatedSections?: Set<string> }) {
   const nodes: ReactNode[] = [];
 
   tokens.forEach((token, i) => {
     switch (token.type) {
       case "heading": {
         const h = token as Tokens.Heading & { id?: string };
-        const id = h.id ?? slugify(extractText(h.tokens ?? []), new Map());
+        const headingText = extractText(h.tokens ?? []);
+        const id = h.id ?? slugify(headingText, new Map());
         const Tag = (`h${Math.min(h.depth, 4)}` as unknown) as "h2";
         const sizes: Record<number, string> = {
           1: "mt-2 text-3xl font-medium tracking-tight text-fg md:text-4xl",
@@ -143,9 +145,13 @@ function Block({ tokens }: { tokens: Token[] }) {
           3: "mt-8 text-lg font-medium text-fg",
           4: "mt-6 text-base font-medium text-fg",
         };
+        const showDot = updatedSections?.has(headingText);
         nodes.push(
           <Tag key={i} id={id} className={cn("scroll-mt-24 text-balance", sizes[h.depth] ?? sizes[4])}>
-            <Inline tokens={h.tokens} />
+            <span className="inline-flex items-center gap-2">
+              <Inline tokens={h.tokens} />
+              {showDot ? <UpdateDot className="translate-y-px" /> : null}
+            </span>
           </Tag>,
         );
         break;
@@ -174,7 +180,7 @@ function Block({ tokens }: { tokens: Token[] }) {
               <li key={j} className="pl-1">
                 {item.tokens.map((child, k) => {
                   if (child.type === "list") {
-                    return <Block key={k} tokens={[child]} />;
+                    return <Block key={k} tokens={[child]} updatedSections={updatedSections} />;
                   }
                   if (child.type === "paragraph" || child.type === "text") {
                     const toks =
@@ -253,7 +259,7 @@ function Block({ tokens }: { tokens: Token[] }) {
             key={i}
             className="mt-5 border-l-2 border-fg/25 pl-4 text-muted"
           >
-            <Block tokens={q.tokens} />
+            <Block tokens={q.tokens} updatedSections={updatedSections} />
           </blockquote>,
         );
         break;
@@ -302,11 +308,21 @@ export function useDocModel(markdown: string) {
   }, [markdown]);
 }
 
-export function MarkdownView({ markdown }: { markdown: string }) {
+export function MarkdownView({
+  markdown,
+  updatedSections,
+}: {
+  markdown: string;
+  updatedSections?: string[];
+}) {
   const { tokens } = useDocModel(markdown);
+  const sectionSet = useMemo(
+    () => (updatedSections?.length ? new Set(updatedSections) : undefined),
+    [updatedSections],
+  );
   return (
     <div className="doc-prose max-w-3xl pb-16">
-      <Block tokens={tokens} />
+      <Block tokens={tokens} updatedSections={sectionSet} />
     </div>
   );
 }

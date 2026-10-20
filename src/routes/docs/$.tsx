@@ -51,8 +51,16 @@ function Article({ page }: { page: NonNullable<ReturnType<typeof getPageBySlug>>
   const { toc } = useDocModel(page.markdown);
   return (
     <DocsShell toc={<TableOfContents items={toc} />}>
-      <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-faint">{page.group}</p>
-      <MarkdownView markdown={page.markdown} />
+      <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-faint">
+        <span>{page.group}</span>
+        {page.updated ? (
+          <span className="inline-flex items-center gap-1.5 normal-case tracking-normal text-rose-500">
+            <span className="docs-update-dot inline-block size-1.5 rounded-full" aria-hidden />
+            本次更新
+          </span>
+        ) : null}
+      </p>
+      <MarkdownView markdown={page.markdown} updatedSections={page.updatedSections} />
       <DocPager slug={page.slug} />
     </DocsShell>
   );
