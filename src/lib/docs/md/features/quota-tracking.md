@@ -35,7 +35,7 @@
 │ Gemini CLI (gc/)                            │
 │ ████████░░░░░░░░░░░░ 450 / 1000 (45%)      │
 │ 每日重置剩余: 18h 30m                       │
-│ 本月: 45K / 180K (25%)                      │
+│ 本月: 45K / 50 credits (示意)               │
 │ 成本: $0(免费层)                           │
 └─────────────────────────────────────────────┘
 
@@ -47,14 +47,14 @@
 └─────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────┐
-│ MiniMax M2.1 (minimax/)                     │
+│ MiniMax M2.7 (minimax/)                     │
 │ ████████████████░░░░ 4M / 5M tokens (80%)   │
 │ 5h 滚动窗口                                  │
 │ 成本(5h): $0.80                            │
 └─────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────┐
-│ iFlow (if/)                                 │
+│ Kiro (kr/)                                  │
 │ ████████████████████ 无限                   │
 │ 成本: $0(永久免费)                        │
 └─────────────────────────────────────────────┘
@@ -105,7 +105,7 @@ Tokens:
 今日(2026-02-04):
   cc/claude-opus-4-5: 15M tokens($0,订阅)
   glm/glm-4.7: 8M tokens($4.80)
-  if/kimi-k2-thinking: 3M tokens($0,免费)
+  kr/claude-sonnet-4.5: 3M tokens($0,免费)
   
 合计: 26M tokens
 成本: $4.80
@@ -152,7 +152,7 @@ Tokens:
 
 仪表盘显示:
   今日: 450 / 1,000 次请求 (45%)
-  本月: 45K / 180K 次补全 (25%)
+  本月: 示意额度 45%（以仪表盘为准）
   每日重置剩余: 18h 30m
   月度重置剩余: 26 天
 ```
@@ -183,7 +183,7 @@ Tokens:
   今日成本: $4.20
 ```
 
-**MiniMax M2.1**
+**MiniMax M2.7**
 ```
 配额类型: 5 小时滚动窗口
 上限: 每 5 小时 5M tokens
@@ -209,7 +209,7 @@ Tokens:
 
 ### 免费提供商
 
-**iFlow / Qwen / Kiro**
+**Kiro / OpenCode Free / Vertex**
 ```
 配额类型: 无限(限速)
 上限: 无硬上限
@@ -268,7 +268,7 @@ Tokens:
 
 按提供商分解:
   GLM-4.7: $22.00 (78%)
-  MiniMax M2.1: $6.00 (22%)
+  MiniMax M2.7: $6.00 (22%)
   
 每 1M tokens 平均成本: $0.62
 相比 ChatGPT API 节省: 97%($4,000 → $120)
@@ -335,15 +335,15 @@ Tokens:
 Top 模型(本月):
 1. cc/claude-opus-4-5: 145M tokens (45%)
 2. glm/glm-4.7: 95M tokens (30%)
-3. if/kimi-k2-thinking: 50M tokens (16%)
-4. minimax/MiniMax-M2.1: 20M tokens (6%)
+3. kr/claude-sonnet-4.5: 50M tokens (16%)
+4. minimax/MiniMax-M2.7: 20M tokens (6%)
 5. gc/gemini-3-flash: 10M tokens (3%)
 
 成本分解:
   cc/claude-opus: $0(订阅)
   glm/glm-4.7: $45.00
-  if/kimi-k2-thinking: $0(免费)
-  minimax/MiniMax-M2.1: $7.00
+  kr/claude-sonnet-4.5: $0(免费)
+  minimax/MiniMax-M2.7: $7.00
   gc/gemini-3-flash: $0(免费)
 ```
 
@@ -378,7 +378,7 @@ premium-coding:
   分解:
     cc/claude-opus: 8M tokens (67%, $0)
     glm/glm-4.7: 3M tokens (25%, $1.80)
-    minimax/MiniMax-M2.1: 1M tokens (8%, $0.20)
+    minimax/MiniMax-M2.7: 1M tokens (8%, $0.20)
 
 budget-combo:
   请求: 234
@@ -387,7 +387,7 @@ budget-combo:
   
   分解:
     glm/glm-4.7: 4M tokens (67%, $2.40)
-    if/kimi-k2-thinking: 2M tokens (33%, $0)
+    kr/claude-sonnet-4.5: 2M tokens (33%, $0)
 ```
 
 ---

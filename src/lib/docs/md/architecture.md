@@ -53,8 +53,9 @@
 │  db.json / usage.json                    │
 └─────────────────────────────────────────┘
         │
-        ├─ OAuth 提供商：Claude / Codex / Gemini / Qwen / iFlow / GitHub / Kiro / Cursor / Antigravity
-        ├─ API Key 提供商：OpenAI / Anthropic / OpenRouter / GLM / Kimi / MiniMax
+        ├─ OAuth / 订阅：Claude / Codex / Copilot / Cursor / Antigravity / Kiro / …
+        ├─ 免费层：Kiro / OpenCode Free / Vertex（iFlow·Qwen·Gemini CLI 免费层已停用）
+        ├─ API Key：OpenAI / Anthropic / OpenRouter / GLM / Kimi / MiniMax / xAI / …
         └─ 兼容节点：OpenAI-compatible / Anthropic-compatible
 
 可选：仪表盘 ↔ 云同步端点（CLOUD_URL）

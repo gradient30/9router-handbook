@@ -1,15 +1,38 @@
 # 其他工具集成
 
-9Router 兼容任何支持 OpenAI API 格式的工具。本指南介绍各种工具和自定义应用的通用集成模式。
+9Router 兼容任何支持 OpenAI / Anthropic API 格式的工具。本节补充 OpenClaw、Grok Build、通用 SDK 与自定义集成。
 
-## 概览
+## OpenClaw
 
-9Router 提供 OpenAI 兼容的 API endpoint,可与以下场景配合使用:
-- 自定义脚本与应用
-- API 客户端与测试工具
-- CLI 工具与实用程序
-- 第三方集成
-- 开发框架
+OpenClaw 可把 AI 接到 WhatsApp / Telegram / Slack 等渠道。把 Base URL 指到 9Router 后，用免费 Combo 即可接近 $0 运行：
+
+```
+Base URL: http://localhost:20128/v1
+API Key:  [仪表盘复制]
+Model:    openclaw-free   # 或直接 kr/claude-sonnet-4.5
+```
+
+推荐 Combo（官方 README 示例）:
+
+```
+1. kr/claude-sonnet-4.5
+2. kr/glm-5
+3. kr/MiniMax-M2.5
+```
+
+仪表盘 → CLI Tools 中若有 OpenClaw 一键写入，优先用一键配置。
+
+## Grok Build（xAI）
+
+上游支持把 `[model.9router]` 写入 `~/.grok/config.toml`，将 Grok Build 指到本地网关。亦可在仪表盘 **CLI Tools → Grok Build** 一键写入。视频生成走 `/v1/videos`（需连接 xAI / Grok Imagine 提供商），见 [API 参考](/docs/reference/api)。
+
+## MITM / IDE 拦截（进阶）
+
+9Router 可拦截 Antigravity / GitHub Copilot / Kiro IDE 流量，把 IDE 订阅接到任意后端。请遵守各工具服务条款；根证书与开关在仪表盘 MITM / Bridge 相关页面。
+
+---
+
+## 通用 OpenAI 兼容模式
 
 ## 通用设置模式
 
@@ -32,17 +55,17 @@ Model: 任意 9Router 模型(cc/*, cx/*, glm/*, 等)
 ## 可用模型
 
 ### Claude 模型(Anthropic)
-- `cc/claude-opus-4-5-20251101`
-- `cc/claude-sonnet-4-20250514`
-- `cc/claude-haiku-4-20250514`
+- `cc/claude-opus-4-7`
+- `cc/claude-sonnet-4-5`
+- `cc/claude-haiku-4-5`
 
 ### DeepSeek 模型
-- `cx/deepseek-chat`
+- `cx/gpt-5.5`
 - `cx/deepseek-reasoner`
 
 ### GLM 模型(Zhipu AI)
-- `glm/glm-4-plus`
-- `glm/glm-4-flash`
+- `glm/glm-4.7`
+- `glm/glm-5.1`
 
 ## 集成示例
 
@@ -57,7 +80,7 @@ client = OpenAI(
 )
 
 response = client.chat.completions.create(
-    model="cc/claude-sonnet-4-20250514",
+    model="cc/claude-sonnet-4-5",
     messages=[
         {"role": "user", "content": "Hello, how are you?"}
     ]
@@ -77,7 +100,7 @@ const client = new OpenAI({
 });
 
 const response = await client.chat.completions.create({
-  model: "cc/claude-sonnet-4-20250514",
+  model: "cc/claude-sonnet-4-5",
   messages: [
     { role: "user", content: "Hello, how are you?" }
   ]
@@ -93,7 +116,7 @@ curl http://localhost:20128/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer your-api-key-from-dashboard" \
   -d '{
-    "model": "cc/claude-sonnet-4-20250514",
+    "model": "cc/claude-sonnet-4-5",
     "messages": [
       {"role": "user", "content": "Hello, how are you?"}
     ]
@@ -116,7 +139,7 @@ Authorization: Bearer your-api-key-from-dashboard
 **Body:**
 ```json
 {
-  "model": "cc/claude-sonnet-4-20250514",
+  "model": "cc/claude-sonnet-4-5",
   "messages": [
     {"role": "user", "content": "Hello, how are you?"}
   ],
@@ -132,7 +155,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
 
 llm = ChatOpenAI(
-    model_name="cc/claude-sonnet-4-20250514",
+    model_name="cc/claude-sonnet-4-5",
     openai_api_key="your-api-key-from-dashboard",
     openai_api_base="http://localhost:20128/v1",
     temperature=0.7
@@ -149,7 +172,7 @@ print(response.content)
 from llama_index.llms import OpenAI
 
 llm = OpenAI(
-    model="cc/claude-sonnet-4-20250514",
+    model="cc/claude-sonnet-4-5",
     api_key="your-api-key-from-dashboard",
     api_base="http://localhost:20128/v1"
 )
@@ -169,7 +192,7 @@ import json
 openai.api_key = "your-api-key-from-dashboard"
 openai.api_base = "http://localhost:20128/v1"
 
-def process_batch(prompts, model="cx/deepseek-chat"):
+def process_batch(prompts, model="cx/gpt-5.5"):
     results = []
     for prompt in prompts:
         response = openai.ChatCompletion.create(
@@ -204,7 +227,7 @@ const client = new OpenAI({
 
 async function streamResponse(prompt) {
   const stream = await client.chat.completions.create({
-    model: "cc/claude-sonnet-4-20250514",
+    model: "cc/claude-sonnet-4-5",
     messages: [{ role: "user", content: prompt }],
     stream: true
   });
@@ -229,9 +252,9 @@ client = OpenAI(
 )
 
 models = [
-    "cc/claude-sonnet-4-20250514",
-    "cx/deepseek-chat",
-    "glm/glm-4-plus"
+    "cc/claude-sonnet-4-5",
+    "cx/gpt-5.5",
+    "glm/glm-4.7"
 ]
 
 prompt = "Explain quantum computing in simple terms"
@@ -255,7 +278,7 @@ for model in models:
 # .env file
 ROUTER_API_KEY=your-api-key-from-dashboard
 ROUTER_BASE_URL=http://localhost:20128/v1
-ROUTER_MODEL=cc/claude-sonnet-4-20250514
+ROUTER_MODEL=cc/claude-sonnet-4-5
 ```
 
 ```python
@@ -280,7 +303,7 @@ client = OpenAI(
 
 try:
     response = client.chat.completions.create(
-        model="cc/claude-sonnet-4-20250514",
+        model="cc/claude-sonnet-4-5",
         messages=[{"role": "user", "content": "Hello"}]
     )
     print(response.choices[0].message.content)
@@ -303,7 +326,7 @@ def chat_with_retry(prompt, max_retries=3):
     for attempt in range(max_retries):
         try:
             response = client.chat.completions.create(
-                model="cc/claude-sonnet-4-20250514",
+                model="cc/claude-sonnet-4-5",
                 messages=[{"role": "user", "content": prompt}]
             )
             return response.choices[0].message.content
@@ -321,10 +344,10 @@ def chat_with_retry(prompt, max_retries=3):
 **问题:** 无法连接到 9Router
 ```bash
 # 检查 9Router 是否运行
-curl http://localhost:20128/health
+curl http://localhost:20128/api/health
 
 # 预期响应:
-{"status": "ok"}
+{"ok": true}
 ```
 
 **方案:**
@@ -409,8 +432,8 @@ Error: Rate limit exceeded
 
 ## 下一步
 
-- [配置 Cursor](cursor.md) 进行 IDE 集成
-- [设置 Continue](continue.md) 用于 VSCode
-- [探索 CLI 用法](../cli/basic-usage.md)
-- [了解模型选择](../models/overview.md)
-- [API 参考](../api/reference.md)
+- [配置 Cursor](/docs/integration/cursor)
+- [设置 Continue](/docs/integration/continue)
+- [快速开始](/docs/getting-started/quick-start)
+- [免费提供商](/docs/providers/free)
+- [API 参考](/docs/reference/api)

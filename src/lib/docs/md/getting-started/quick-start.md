@@ -26,6 +26,8 @@ npm install -g 9router
 - API key 自动生成
 - 可立即连接提供商
 
+> 提示:安装后默认开启 **RTK Token Saver**（压缩 tool_result）。详见 [Token 节省](/docs/features/token-saver)。
+
 ### 3. 连接提供商
 
 有 3 种方式连接提供商:
@@ -44,7 +46,7 @@ npm install -g 9router
 1. 点击 "Connect Claude Code"
 2. 用你的 Claude 账户登录
 3. 授权 9Router
-4. ✅ 完成!使用模型:`cc/claude-opus-4-5-20251101`
+4. ✅ 完成!使用模型:`cc/claude-opus-4-7`
 
 #### 方式 B:API Key(低价提供商)
 
@@ -63,21 +65,20 @@ npm install -g 9router
 3. 仪表盘 → 添加 API Key → 提供商:`glm` → 粘贴 key
 4. ✅ 完成!使用模型:`glm/glm-4.7`
 
-#### 方式 C:免费提供商(零成本)
+#### 方式 C:免费提供商(零成本兜底)
 
-**适用于:** iFlow、Qwen、Kiro
+**适用于:** Kiro、OpenCode Free、Vertex AI
+
+> 2026 起 iFlow / Qwen Code / Gemini CLI 免费层已停用，请用下面三个。
 
 ```
-仪表盘 → 提供商 → 连接 [免费提供商]
-→ 设备码或 OAuth
-→ 无限使用
+仪表盘 → 提供商 → 连接 Kiro 或 OpenCode Free
 ```
 
-**示例:iFlow**
-1. 点击 "Connect iFlow"
-2. 用 iFlow 账户登录
-3. 授权
-4. ✅ 完成!使用 8 个模型:`if/kimi-k2-thinking`、`if/qwen3-coder-plus` 等
+**示例:Kiro（推荐先接）**
+1. 点击 "Connect Kiro"
+2. 用 AWS Builder ID / Google / GitHub 登录
+3. ✅ 完成!常用模型:`kr/claude-sonnet-4.5`、`kr/glm-5`
 
 ---
 
@@ -91,7 +92,7 @@ npm install -g 9router
 Settings → Models → Advanced:
   OpenAI API Base URL: http://localhost:20128/v1
   OpenAI API Key: [从 9router 仪表盘获取]
-  Model: cc/claude-opus-4-5-20251101
+  Model: cc/claude-opus-4-7
 ```
 
 ### Claude Desktop
@@ -111,7 +112,7 @@ Settings → Models → Advanced:
 Provider: OpenAI Compatible
 Base URL: http://localhost:20128/v1
 API Key: [从仪表盘获取]
-Model: cc/claude-opus-4-5-20251101
+Model: cc/claude-opus-4-7
 ```
 
 ### Codex CLI
@@ -134,9 +135,9 @@ codex "your prompt"
 
 名称: premium-coding
 模型:
-  1. cc/claude-opus-4-5-20251101 (订阅主力)
+  1. cc/claude-opus-4-7 (订阅主力)
   2. glm/glm-4.7 (低价备用, $0.6/1M)
-  3. if/kimi-k2-thinking (免费回退)
+  3. kr/claude-sonnet-4.5 (免费回退)
 
 CLI 中使用: premium-coding
 ```
@@ -144,7 +145,7 @@ CLI 中使用: premium-coding
 **工作原理:**
 1. 先尝试 Claude Opus(你的订阅)
 2. 配额耗尽 → GLM-4.7(超低价)
-3. 预算上限 → iFlow(免费)
+3. 预算上限 → Kiro / OpenCode Free(免费)
 4. 零停机,自动切换!
 
 ---
@@ -154,15 +155,15 @@ CLI 中使用: premium-coding
 ### 订阅型模型(优先使用)
 
 **Claude Code (`cc/`)** - Pro/Max 订阅:
-- `cc/claude-opus-4-5-20251101` - Claude 4.5 Opus
-- `cc/claude-sonnet-4-5-20250929` - Claude 4.5 Sonnet
-- `cc/claude-haiku-4-5-20251001` - Claude 4.5 Haiku
+- `cc/claude-opus-4-7` - Claude 4.5 Opus
+- `cc/claude-sonnet-4-5` - Claude 4.5 Sonnet
+- `cc/claude-haiku-4-5` - Claude 4.5 Haiku
 
 **Codex (`cx/`)** - Plus/Pro 订阅:
 - `cx/gpt-5.2-codex` - GPT 5.2 Codex
 - `cx/gpt-5.1-codex-max` - GPT 5.1 Codex Max
 
-**Gemini CLI (`gc/`)** - 每月免费 180K:
+**Gemini CLI (`gc/`)** - 免费层已停用，仅在仍可用时参考:
 - `gc/gemini-3-flash-preview` - Gemini 3 Flash Preview
 - `gc/gemini-2.5-pro` - Gemini 2.5 Pro
 
@@ -172,30 +173,29 @@ CLI 中使用: premium-coding
 
 ### 低价模型(备用)
 
-**GLM (`glm/`)** - 每 1M $0.6/$2.2:
+**GLM (`glm/`)** - 约每 1M $0.6:
 - `glm/glm-4.7` - GLM 4.7(每日 10AM 重置)
+- `glm/glm-5.1` - GLM 5.1（以仪表盘目录为准）
 
 **MiniMax (`minimax/`)** - 每 1M $0.20/$1.00:
-- `minimax/MiniMax-M2.1` - MiniMax M2.1(5h 重置)
+- `minimax/MiniMax-M2.7` - MiniMax M2.7(5h 重置)
 
 **Kimi (`kimi/`)** - $9/月(10M tokens):
 - `kimi/kimi-latest` - Kimi Latest
 
 ### 免费模型(应急)
 
-**iFlow (`if/`)** - 8 个免费模型:
-- `if/kimi-k2-thinking` - Kimi K2 Thinking
-- `if/qwen3-coder-plus` - Qwen3 Coder Plus
-- `if/glm-4.7` - GLM 4.7
-- `if/deepseek-r1` - DeepSeek R1
-
-**Qwen (`qw/`)** - 3 个免费模型:
-- `qw/qwen3-coder-plus` - Qwen3 Coder Plus
-- `qw/qwen3-coder-flash` - Qwen3 Coder Flash
-
-**Kiro (`kr/`)** - 2 个免费模型:
+**Kiro (`kr/`)** - 约 50 credits/月:
 - `kr/claude-sonnet-4.5` - Claude Sonnet 4.5
 - `kr/claude-haiku-4.5` - Claude Haiku 4.5
+- `kr/glm-5` - GLM-5（经 Kiro）
+- `kr/MiniMax-M2.5` - MiniMax（经 Kiro）
+
+**OpenCode Free (`oc/`)** - 无需鉴权，模型列表浮动，以仪表盘为准。
+
+**Vertex (`vertex/`)** - GCP 试用额度:
+- `vertex/gemini-3-flash-preview`
+- `vertex/gemini-3.1-pro-preview`
 
 ---
 
@@ -204,14 +204,14 @@ CLI 中使用: premium-coding
 ### 月度预算:$10-20/月
 
 ```
-1. 用 Gemini CLI 免费层(每月 180K)处理快速任务
+1. 用足已有订阅配额（Claude Code / Codex / Copilot）
 2. 用足 Claude Code 订阅配额(你已经付费了)
 3. 配额用完后回退到 GLM(每 1M $0.6)
-4. 应急: MiniMax M2.1(每 1M $0.20)或 iFlow(免费)
+4. 应急: MiniMax M2.7(每 1M $0.20)或 Kiro / OpenCode Free(免费)
 
 真实案例(每月 100M tokens):
-  60M 通过 Gemini CLI: $0(免费层)
-  30M 通过 Claude Code: $0(你已有的订阅)
+  60M 通过已有订阅: $0 额外
+  30M 通过 Kiro / OpenCode Free: $0（额度内）
   8M 通过 GLM: $4.80
   2M 通过 MiniMax: $0.40
   合计: $5.20/月 + 已有订阅
@@ -224,7 +224,7 @@ CLI 中使用: premium-coding
 1. 早上: 全新的 Claude Code 配额(5h 重置)
 2. 下午: 切换到 Gemini CLI(每日 1K)
 3. 晚上: GLM 每日配额(次日 10AM 重置)
-4. 深夜: MiniMax(5h 滚动)或 iFlow(免费)
+4. 深夜: MiniMax(5h 滚动)或 Kiro / OpenCode Free(免费)
 
 → 24/7 编码,几乎零额外成本!
 ```

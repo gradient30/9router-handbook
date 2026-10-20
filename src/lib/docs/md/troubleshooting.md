@@ -24,7 +24,7 @@
 2. **使用组合回退:**
    ```
    仪表盘 → 组合 → 创建回退链
-   示例: cc/claude-opus → glm/glm-4.7 → if/kimi-k2
+   示例: cc/claude-opus → glm/glm-4.7 → kr/claude-sonnet-4.5
    ```
 
 3. **验证提供商连接:**
@@ -53,7 +53,7 @@
 2. **切换到低价层:**
    ```
    使用: glm/glm-4.7 (每 1M tokens $0.6)
-        minimax/MiniMax-M2.1 (每 1M tokens $0.20)
+        minimax/MiniMax-M2.7 (每 1M tokens $0.20)
    ```
 
 3. **添加回退组合:**
@@ -61,7 +61,7 @@
    仪表盘 → 组合 → 添加备用模型
    主力: cc/claude-opus (订阅)
    备用: glm/glm-4.7 (低价)
-   应急: if/kimi-k2 (免费)
+   应急: kr/claude-sonnet-4.5（Kiro 免费额度）
    ```
 
 ---
@@ -112,15 +112,15 @@
    ```
    替换: cc/claude-opus ($20-100/月 订阅)
    为: glm/glm-4.7 (每 1M tokens $0.6)
-       minimax/MiniMax-M2.1 (每 1M tokens $0.20)
+       minimax/MiniMax-M2.7 (每 1M tokens $0.20)
    ```
 
 3. **使用免费层:**
    ```
-   if/kimi-k2-thinking (免费)
+   kr/claude-sonnet-4.5 (免费)
    qw/qwen3-coder-plus (免费)
    kr/claude-sonnet-4.5 (免费)
-   gc/gemini-3-flash-preview (每月免费 180K)
+   oc/<OpenCode Free 模型> 或 vertex/gemini-3-flash-preview
    ```
 
 4. **优化 prompt:**

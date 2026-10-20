@@ -14,7 +14,7 @@
 模型:
   1. cc/claude-opus-4-5-20251101 (首选)
   2. glm/glm-4.7 (#1 配额耗尽时)
-  3. minimax/MiniMax-M2.1 (#2 配额耗尽时)
+  3. minimax/MiniMax-M2.7 (#2 配额耗尽时)
 ```
 
 **CLI 中使用:**
@@ -26,11 +26,29 @@ Model: premium-coding
 
 ---
 
+
+
+---
+
+## 组合策略（Fallback / Round-robin / Fusion / Capacity）
+
+仪表盘为每个 Combo 提供策略选择（上游 v0.5.2+）：
+
+| 策略 | 行为 |
+|------|------|
+| **fallback**（默认） | 按顺序尝试，失败 / 限流 / 配额耗尽则下一个 |
+| **round-robin** | 在成员间轮询，适合多账号负载分担 |
+| **fusion** | 并行查询多个模型，由裁判模型汇总成一条回答 |
+| **capacity** | 按请求能力自动挑模型（例如带图 / PDF / 音频时优先选具备对应能力的成员） |
+
+创建 Combo 后可在设置里指定策略与（Fusion 用的）裁判模型。CLI 仍只需填写 Combo 名称作为 `model`。
+
+
 ## 为什么使用组合?
 
 ### 1. 最大化订阅价值
 ```
-cc/claude-opus → glm/glm-4.7 → if/kimi-k2-thinking
+cc/claude-opus → glm/glm-4.7 → kr/claude-sonnet-4.5
 
 → 先用订阅,低价备用,免费应急
 → 充分利用你已付费的订阅
@@ -38,17 +56,17 @@ cc/claude-opus → glm/glm-4.7 → if/kimi-k2-thinking
 
 ### 2. 最小化成本
 ```
-glm/glm-4.7 → minimax/MiniMax-M2.1 → if/kimi-k2-thinking
+glm/glm-4.7 → minimax/MiniMax-M2.7 → kr/claude-sonnet-4.5
 
 → 从最便宜的付费选项开始(每 1M $0.60)
 → 回退到更便宜的(每 1M $0.20)
-→ 应急免费层
+→ 应急免费层（Kiro / OpenCode Free）
 → 总成本: 约 $5-10/月,而 ChatGPT API 需要 $2000
 ```
 
 ### 3. 保障 24/7 可用
 ```
-cc/claude-opus → cx/gpt-5.2-codex → glm/glm-4.7 → if/kimi-k2-thinking
+cc/claude-opus → cx/gpt-5.2-codex → glm/glm-4.7 → kr/claude-sonnet-4.5
 
 → 末尾总是放免费层
 → 永不耗尽配额
@@ -97,7 +115,7 @@ premium-coding
 ```
 1. cc/claude-opus-4-5-20251101
 2. glm/glm-4.7
-3. minimax/MiniMax-M2.1
+3. minimax/MiniMax-M2.7
 ```
 
 **拖动排序** - 自上而下表示优先级。
@@ -131,7 +149,7 @@ Cursor/Cline/任意工具:
 模型:
   1. cc/claude-opus-4-5-20251101
   2. glm/glm-4.7
-  3. minimax/MiniMax-M2.1
+  3. minimax/MiniMax-M2.7
 ```
 
 **用法:**
@@ -149,7 +167,7 @@ Cursor IDE:
   请求 → glm/glm-4.7 ✅ (自动切换)
 
 晚上(GLM 配额用完):
-  请求 → minimax/MiniMax-M2.1 ✅ (自动切换)
+  请求 → minimax/MiniMax-M2.7 ✅ (自动切换)
 ```
 
 **月成本(100M tokens):**
@@ -174,8 +192,8 @@ Cursor IDE:
 名称: budget-combo
 模型:
   1. glm/glm-4.7
-  2. minimax/MiniMax-M2.1
-  3. if/kimi-k2-thinking
+  2. minimax/MiniMax-M2.7
+  3. kr/claude-sonnet-4.5
 ```
 
 **用法:**
@@ -191,14 +209,14 @@ Cline:
 请求 → glm/glm-4.7
   ✅ 每日配额可用 → 使用 GLM(每 1M $0.60)
   ❌ 配额耗尽 → 尝试 MiniMax(每 1M $0.20)
-  ❌ MiniMax 配额用完 → 使用 iFlow(免费)
+  ❌ MiniMax 配额用完 → 使用 Kiro / OpenCode Free(免费)
 ```
 
 **月成本(100M tokens):**
 ```
 70M 通过 GLM: $42
 20M 通过 MiniMax: $4
-10M 通过 iFlow: $0
+10M 通过 Kiro: $0
 合计: $46,而 ChatGPT API 需 $2000
 ```
 
@@ -215,7 +233,7 @@ Cline:
 
 名称: free-combo
 模型:
-  1. if/kimi-k2-thinking
+  1. kr/claude-sonnet-4.5
   2. qw/qwen3-coder-plus
   3. kr/claude-sonnet-4.5
 ```
@@ -228,8 +246,8 @@ Claude Desktop:
 
 **行为:**
 ```
-请求 → if/kimi-k2-thinking
-  ✅ 可用 → 使用 iFlow
+请求 → kr/claude-sonnet-4.5
+  ✅ 可用 → 使用 Kiro
   ❌ 错误 → 尝试 Qwen
   ❌ 错误 → 尝试 Kiro
 ```
@@ -286,12 +304,12 @@ Codex CLI:
 
 名称: multi-sub
 模型:
-  1. gc/gemini-3-flash-preview (每月免费 180K)
+  1. kr/claude-sonnet-4.5 (Kiro 免费额度)
   2. cc/claude-opus-4-5-20251101 (Pro 订阅)
   3. cx/gpt-5.2-codex (Plus 订阅)
   4. gh/gpt-5 (Copilot 订阅)
   5. glm/glm-4.7 (低价备用)
-  6. if/kimi-k2-thinking (免费应急)
+  6. kr/claude-sonnet-4.5 (免费应急)
 ```
 
 **月成本(200M tokens):**
@@ -301,7 +319,7 @@ Codex CLI:
 40M 通过 Codex: $0(订阅)
 20M 通过 Copilot: $0(订阅)
 8M 通过 GLM: $4.80
-2M 通过 iFlow: $0
+2M 通过 Kiro: $0
 合计: $4.80 + 你已有的订阅
 ```
 
@@ -321,8 +339,8 @@ Codex CLI:
   1. cc/claude-opus-4-5 (5h 重置, 早上用)
   2. gc/gemini-3-flash (每日 1K, 下午用)
   3. glm/glm-4.7 (每日 10AM 重置, 晚上用)
-  4. minimax/MiniMax-M2.1 (5h 滚动, 夜里用)
-  5. if/kimi-k2-thinking (无限, 应急)
+  4. minimax/MiniMax-M2.7 (5h 滚动, 夜里用)
+  5. kr/claude-sonnet-4.5 (无限, 应急)
 ```
 
 **日常安排:**
@@ -330,7 +348,7 @@ Codex CLI:
 08:00 - 13:00: Claude Code(全新 5h 配额)
 13:00 - 18:00: Gemini CLI(每日 1K 配额)
 18:00 - 22:00: GLM(次日 10AM 重置)
-22:00 - 08:00: MiniMax(5h 滚动)或 iFlow
+22:00 - 08:00: MiniMax(5h 滚动)或 Kiro / OpenCode Free
 ```
 
 **结果**:24/7 编码,成本极低。
@@ -400,7 +418,7 @@ curl http://localhost:20128/v1/chat/completions \
 
 ```
 ✅ 好:
-cc/claude-opus → glm/glm-4.7 → if/kimi-k2-thinking
+cc/claude-opus → glm/glm-4.7 → kr/claude-sonnet-4.5
 
 ❌ 不好:
 cc/claude-opus → glm/glm-4.7
@@ -413,7 +431,7 @@ cc/claude-opus → glm/glm-4.7
 
 ```
 ✅ 好:
-glm/glm-4.7 → minimax/MiniMax-M2.1 → cc/claude-opus
+glm/glm-4.7 → minimax/MiniMax-M2.7 → cc/claude-opus
 
 ❌ 不好:
 cc/claude-opus → glm/glm-4.7
@@ -429,10 +447,10 @@ cc/claude-opus → glm/glm-4.7
 cc/claude-opus → cx/gpt-5.2-codex → glm/glm-4.7
 
 简单任务:
-glm/glm-4.7 → if/kimi-k2-thinking
+glm/glm-4.7 → kr/claude-sonnet-4.5
 
 试验:
-if/kimi-k2-thinking → qw/qwen3-coder-plus
+kr/claude-sonnet-4.5 → qw/qwen3-coder-plus
 ```
 
 ### 4. 考虑配额重置时间
@@ -442,7 +460,7 @@ if/kimi-k2-thinking → qw/qwen3-coder-plus
 cc/claude-opus → cx/gpt-5.2-codex
 
 晚上组合(配额大概率耗尽):
-glm/glm-4.7 → minimax/MiniMax-M2.1 → if/kimi-k2-thinking
+glm/glm-4.7 → minimax/MiniMax-M2.7 → kr/claude-sonnet-4.5
 ```
 
 ### 5. 为不同场景创建多个组合
@@ -488,7 +506,7 @@ quality-first: 生产代码
 仪表盘 → 组合 → 编辑 → 模型:
   ✅ cc/claude-opus-4-5(启用)
   ❌ glm/glm-4.7(暂时禁用)
-  ✅ if/kimi-k2-thinking(启用)
+  ✅ kr/claude-sonnet-4.5(启用)
 ```
 
 **用途**:暂时禁用昂贵模型而不删除组合。

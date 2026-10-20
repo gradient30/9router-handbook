@@ -8,9 +8,9 @@
 
 低价层提供商是订阅配额耗尽时的 **备用**:
 
-- 💰 **GLM-4.7** - 每 1M tokens $0.6/$2.2(每日重置)
-- 💰 **MiniMax M2.1** - 每 1M tokens $0.2/$1.0(5h 重置)
-- 💰 **Kimi K2** - $9/月固定(10M tokens)
+- 💰 **GLM-4.7 / GLM-5.x** - 约每 1M tokens $0.6(每日重置)
+- 💰 **MiniMax M2.7** - 约每 1M tokens $0.2(5h 重置)；亦可见 `MiniMax-M2.5`
+- 💰 **Kimi** - 约 $9/月额度制（以官方套餐为准）
 
 **策略:** 在订阅配额用完后、免费层之前使用。相比 ChatGPT API(每 1M $20),省钱巨大。
 
@@ -89,7 +89,7 @@ Model: glm/glm-4.7
 
 ---
 
-## MiniMax M2.1(5 小时重置)
+## MiniMax M2.7(5 小时重置)
 
 ### 价格
 
@@ -130,14 +130,15 @@ API Key: your-minimax-api-key
 **步骤 4:在 CLI 中使用**
 
 ```
-Model: minimax/MiniMax-M2.1
+Model: minimax/MiniMax-M2.7
 ```
 
 ### 可用模型
 
 | 模型 ID | 描述 | 上下文 | 最佳场景 |
 |----------|-------------|---------|----------|
-| `minimax/MiniMax-M2.1` | MiniMax M2.1 | 1M tokens | 长上下文、编码 |
+| `minimax/MiniMax-M2.7` | MiniMax M2.7 | 以官方为准 | 当前最便宜常用档 |
+| `minimax/MiniMax-M2.5` | MiniMax M2.5 | 以官方为准 | 备用型号 |
 
 ### 专业建议
 
@@ -240,7 +241,7 @@ Model: kimi/kimi-latest
 | 提供商 | 输入/1M | 输出/1M | 重置 | 10M 成本 | 最佳场景 |
 |----------|----------|-----------|-------|----------|----------|
 | **GLM-4.7** | $0.60 | $2.20 | 每日 10AM | $6-22 | 每日配额用户 |
-| **MiniMax M2.1** | $0.20 | $1.00 | 5 小时 | $2-10 | **最便宜!** |
+| **MiniMax M2.7** | $0.20 | $1.00 | 5 小时 | $2-10 | **最便宜!** |
 | **Kimi K2** | $0.90 | $0.90 | 每月 | **$9 固定** | 稳定使用 |
 | ChatGPT API | $20.00 | $20.00 | 无 | $200 | ❌ 昂贵 |
 
@@ -268,8 +269,8 @@ Settings → Models → Advanced:
 模型:
   1. cc/claude-opus-4-5 (订阅主力)
   2. glm/glm-4.7 (低价备用, 每日重置)
-  3. minimax/MiniMax-M2.1 (最便宜的回退)
-  4. if/kimi-k2-thinking (免费应急)
+  3. minimax/MiniMax-M2.7 (最便宜的回退)
+  4. kr/claude-sonnet-4.5 (免费应急)
 
 CLI 中使用: cheap-backup
 ```
@@ -293,7 +294,7 @@ CLI 中使用: cheap-backup
 晚上: MiniMax(5h 重置)
 → 深夜的低价备用
 
-夜里: 免费层(iFlow)
+夜里: 免费层(Kiro / OpenCode Free)
 → 零成本应急备用
 ```
 
@@ -315,11 +316,11 @@ CLI 中使用: cheap-backup
 
 ```
 优先级:
-1. Gemini CLI(每月免费 180K)
+1. 订阅层（Claude Code / Codex）
 2. Claude Code(已付费订阅)
 3. GLM-4.7(低价备用,每 1M $0.6)
-4. MiniMax M2.1(最便宜,每 1M $0.2)
-5. iFlow(免费应急)
+4. MiniMax M2.7(最便宜,每 1M $0.2)
+5. Kiro / OpenCode Free(免费应急)
 
 月成本示例(100M tokens):
 - 60M 通过 Gemini CLI: $0(免费)
@@ -339,7 +340,7 @@ CLI 中使用: cheap-backup
 分解:
 - 60M 通过订阅(Claude/Codex): 无额外费用
 - 30M 通过 GLM-4.7: $18
-- 10M 通过 MiniMax M2.1: $2
+- 10M 通过 MiniMax M2.7: $2
 
 合计: $20/月
 而 ChatGPT API 需 $2000!
@@ -408,8 +409,8 @@ Coding Plan: 3× 配额(同价!)
 组合:
 1. gc/gemini-3-flash(免费主力)
 2. glm/glm-4.7(低价备用)
-3. minimax/MiniMax-M2.1(最便宜)
-4. if/kimi-k2-thinking(免费应急)
+3. minimax/MiniMax-M2.7(最便宜)
+4. kr/claude-sonnet-4.5(免费应急)
 
 结果: 最小化成本,最大化在线
 ```

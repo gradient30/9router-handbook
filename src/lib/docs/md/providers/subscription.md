@@ -10,11 +10,14 @@
 
 - ✅ **Claude Code**(Pro/Max)- Claude 4.5 Opus/Sonnet/Haiku
 - ✅ **OpenAI Codex**(Plus/Pro)- GPT 5.2 Codex、GPT 5.1 Codex Max
-- ✅ **Gemini CLI**(免费层!)- 每月 180K 次补全
+- ⚠️ **Gemini CLI** - 免费层已停用（2026）；若仍可连接请以实际配额为准
 - ✅ **GitHub Copilot** - GPT-5、Claude 4.5、Gemini 3
 - ✅ **Antigravity**(Google)- Gemini 3 Pro、Claude Sonnet 4.5
 
 **策略:** 优先使用这些,实时跟踪配额,耗尽时回退到低价/免费层。
+
+> **2026 提示:** 官方 README 标明 **Gemini CLI 免费层已停用**。若仪表盘仍可连接 Gemini/Antigravity，请以实际配额为准，勿再按「每月 180K 免费」规划产能。免费兜底请见 [免费提供商](/docs/providers/free)。
+
 
 ---
 
@@ -119,15 +122,15 @@ Model: cx/gpt-5.2-codex
 
 ---
 
-## Gemini CLI(每月免费 180K!)
+## Gemini CLI（免费层状态请核对）
 
 ### 价格
 
 | 套餐 | 月费 | 配额 | 重置 |
 |------|--------------|-------|-------|
-| 免费 | $0 | 180K 次补全/月 + 每日 1K | 每日 + 每月 |
+| （曾免费） | — | 免费层已停用 | — |
 
-**最佳性价比:** 巨大的免费层!请在付费层之前使用。
+**注意:** 官方已标明 Gemini CLI 免费层停用；本节步骤仅在你账号仍可用时参考。
 
 ### 设置
 
@@ -165,7 +168,7 @@ Model: gc/gemini-3-flash-preview
 
 ### 专业建议
 
-- **每月 180K 次补全** - 大量免费层
+- **免费层已停用** - 请改用 Kiro / OpenCode Free / Vertex
 - **每日 1K 限制** - 每天午夜重置
 - **优先使用** - 免费层,先于付费订阅
 - **无需信用卡** - Google 账户完全免费
@@ -279,7 +282,7 @@ Model: ag/gemini-3-pro-high
 | **Claude Code Max** | $100 | 5 小时 + 每周 | ⭐⭐⭐⭐⭐ 最高配额 |
 | **Codex Plus** | $20 | 5 小时 + 每周 | ⭐⭐⭐⭐ 良好性价比 |
 | **Codex Pro** | $200 | 5 小时 + 每周 | ⭐⭐⭐⭐⭐ 10× 配额 |
-| **Gemini CLI** | **$0** | 每日 + 每月 | ⭐⭐⭐⭐⭐ 免费 180K/月! |
+| **Gemini CLI** | 视账号 | — | ⚠️ 免费层已停用 |
 | **GitHub Copilot** | $10-19 | 每月(1 日) | ⭐⭐⭐⭐ 多模型 |
 | **Antigravity** | **$0** | 每日 + 每月 | ⭐⭐⭐⭐ 免费 Claude! |
 
@@ -341,7 +344,7 @@ Claude Code Pro
 
 ```
 优先级:
-1. Gemini CLI(每月免费 180K)
+1. 已有订阅（Claude Code / Codex / Copilot）
 2. Antigravity(免费 Claude)
 3. Claude Code/Codex(付费订阅)
 ```
@@ -359,7 +362,7 @@ Claude Code Pro
 1. gc/gemini-3-flash-preview(免费主力)
 2. cc/claude-opus-4-5(复杂任务)
 3. glm/glm-4.7(低价备用)
-4. if/kimi-k2-thinking(免费回退)
+4. kr/claude-sonnet-4.5(免费回退)
 ```
 
 ### 4. 按时间优化
@@ -393,7 +396,7 @@ Claude Code Pro
 **方案:**
 - 订阅配额已用尽
 - 添加回退:`cc/claude-opus → glm/glm-4.7`
-- 使用免费层:`if/kimi-k2-thinking`
+- 使用免费层:`kr/claude-sonnet-4.5`
 
 ---
 
