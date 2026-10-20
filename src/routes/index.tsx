@@ -25,7 +25,15 @@ function Home() {
   return (
     <DocsShell toc={<TableOfContents items={toc} />}>
       <div className="mb-8 max-w-3xl">
-        <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-faint">开源 AI 路由网关</p>
+        <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-faint">
+          <span>开源 AI 路由网关</span>
+          {page.updated ? (
+            <span className="inline-flex items-center gap-1.5 normal-case tracking-normal text-rose-500">
+              <span className="docs-update-dot inline-block size-1.5 rounded-full" aria-hidden />
+              本次更新
+            </span>
+          ) : null}
+        </p>
         <h1 className="mt-3 text-balance text-3xl font-medium tracking-tight md:text-4xl">
           把所有编码工具接到一个端点
         </h1>
@@ -49,7 +57,7 @@ function Home() {
           </Link>
         </div>
       </div>
-      <MarkdownView markdown={body} />
+      <MarkdownView markdown={body} updatedSections={page.updatedSections} />
       <DocPager slug={page.slug} />
     </DocsShell>
   );
