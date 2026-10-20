@@ -144,6 +144,10 @@ html[data-theme="color"] {
     color: var(--color-fg);
   }
 
+  .docs-update-dot {
+    background: #f43f5e;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
